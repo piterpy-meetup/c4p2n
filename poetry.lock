@@ -143,6 +143,17 @@ test = ["pytest (>=4.0.0)", "pytest-cov", "mypy", "black", "isort", "requests", 
 
 [[package]]
 category = "main"
+description = ""
+name = "fastapi-security-typeform"
+optional = false
+python-versions = ">=3.6"
+version = "1.0.0"
+
+[package.dependencies]
+fastapi = "*"
+
+[[package]]
+category = "main"
 description = "Internationalized Domain Names in Applications (IDNA)"
 name = "idna"
 optional = false
@@ -303,7 +314,7 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [metadata]
-content-hash = "95e0eb57c1b40f0507c312b51e9a32253941bcf8eda3bf79c6e6346a1d5c0a55"
+content-hash = "85c13f414346a24852259d4525b84c23eab8ff0e66a885617e62b47618bde0e9"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -354,6 +365,10 @@ dictdiffer = [
 fastapi = [
     {file = "fastapi-0.50.0-py3-none-any.whl", hash = "sha256:6e367f4f2ac7ac55d5f7e90bac9c48dd080e57e4d8759d67aaf6abc868f7c1a4"},
     {file = "fastapi-0.50.0.tar.gz", hash = "sha256:1b4b36052b281883f55ea116c03db476617712e709c6c6cd45e25b8f13b241f8"},
+]
+fastapi-security-typeform = [
+    {file = "fastapi-security-typeform-1.0.0.tar.gz", hash = "sha256:dce82e9f12e01543cf3df2c6e5268df01ebd254b1f79888c7f674bcaa1be2917"},
+    {file = "fastapi_security_typeform-1.0.0-py3-none-any.whl", hash = "sha256:e9dbe5e8f82c01358d7e67aa89334c77eb610f43be1484ef1219c159830c7bbb"},
 ]
 idna = [
     {file = "idna-2.9-py2.py3-none-any.whl", hash = "sha256:a068a21ceac8a4d63dbfd964670474107f541babbd2250d61922f029858365fa"},

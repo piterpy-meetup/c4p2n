@@ -9,6 +9,7 @@ license = "MIT License"
 python = "^3.8"
 fastapi = "^0.50.0"
 notion = "^0.0.25"
+fastapi-security-typeform = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
