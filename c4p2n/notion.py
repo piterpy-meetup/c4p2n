@@ -9,7 +9,7 @@ class Notion:
         self.client = NotionClient(token_v2=token)
         self.db_link = db_link
         self._talks_collection_view = self.client.get_collection_view(db_link)
-        self.talks_collection = self._talks_collection_view.collection()
+        self.talks_collection = self._talks_collection_view.collection
 
     def add_talk_info(self, data: Dict[str, Any]):
         row = self.talks_collection.add_row()
