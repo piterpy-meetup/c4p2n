@@ -18,6 +18,11 @@ signature_header_security = SignatureHeader(
 )
 
 
+@app.get("/")
+def health_check():
+    return {"notion_user": notion.client.current_user.full_name}
+
+
 @app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
 def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any]:
     answers = request.extract_answers()
