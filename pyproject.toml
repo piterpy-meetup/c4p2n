@@ -8,7 +8,7 @@ license = "MIT License"
 [tool.poetry.dependencies]
 python = "^3.8"
 
-fastapi = "^0.50.0"
+fastapi = "^0.52.0"
 fastapi-security-typeform = "^1.0.0"
 
 uvicorn = "^0.11.3"
@@ -17,6 +17,7 @@ notion = "^0.0.25"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
+mypy = "^0.761"
 
 [build-system]
 requires = ["poetry>=0.12"]
