@@ -19,7 +19,7 @@ signature_header_security = SignatureHeader(
 
 
 @app.get("/")
-def health_check():
+def health_check() -> Dict[str, str]:
     return {"notion_user": notion.client.current_user.full_name}
 
 
