@@ -1,6 +1,8 @@
-from typing import Any, Dict
+from typing import Any, Dict, Union, List
 
 from notion.client import NotionClient
+
+from c4p2n.models import CallForPaperAnswers
 
 
 class Notion:
@@ -11,15 +13,15 @@ class Notion:
         self._talks_collection_view = self.client.get_collection_view(db_link)
         self.talks_collection = self._talks_collection_view.collection
 
-    def add_talk_info(self, data: Dict[str, Any]) -> None:
+    def add_talk_info(self, answers: CallForPaperAnswers) -> None:
         row = self.talks_collection.add_row()
-        row.name = data.get("name", "")
-        row.job = data.get("job", "")
-        if photo_link := data.get("photo_link"):
-            row.photo = [photo_link]
-        row.talk_title = data.get("talk_title", "")
-        row.talk_description = data.get("talk_description", "")
-        row.talk_date = ", ".join(data.get("talk_date", []))
-        row.telegram = data.get("telegram", "")
-        row.contact = data.get("contact", "")
-        row.questions = data.get("questions", "")
+        row.name = answers.name
+        row.job = answers.job
+        row.photo = [answers.photo_link]
+        row.talk_title = answers.talk_title
+        row.talk_description = answers.talk_description
+        row.talk_date = answers.talk_dates()
+        row.telegram = answers.telegram
+        row.contact = answers.contact
+        row.phone = answers.phone
+        row.questions = answers.questions
