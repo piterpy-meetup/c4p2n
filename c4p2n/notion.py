@@ -11,7 +11,7 @@ class Notion:
         self._talks_collection_view = self.client.get_collection_view(db_link)
         self.talks_collection = self._talks_collection_view.collection
 
-    def add_talk_info(self, data: Dict[str, Any]):
+    def add_talk_info(self, data: Dict[str, Any]) -> None:
         row = self.talks_collection.add_row()
         row.name = data.get("name", "")
         row.job = data.get("job", "")

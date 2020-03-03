@@ -7,21 +7,6 @@ from c4p2n.constants import C4P_FIELDS
 from c4p2n.extractors import field_ref, extract_answer
 
 
-class BaseWebhookRequest(BaseModel):
-    event_id: str
-    event_type: str
-    form_response: Dict[str, Any]
-
-
-class BaseFormResponse(BaseModel):
-    form_id: str
-    token: str
-    landed_at: datetime
-    submitted_at: datetime
-    definition: Dict[str, Any]
-    answers: List[Dict[str, Any]]
-
-
 class BaseField(BaseModel):
     id: str
     type: str
@@ -33,37 +18,21 @@ class DefinitionField(BaseField):
     properties: Dict[str, Any]
 
 
-class BaseDefinition(BaseModel):
+class CallForPaperDefinition(BaseModel):
+    """
+    Definition of Typeform form: id, name, fields.
+    """
+
     id: str
     title: str
-    _fields: List[Any] = Field(None, alias="fields")
-
-
-class TextDefinitionField(DefinitionField):
-    pass
-
-
-class Choice(BaseModel):
-    id: str
-    label: str
-
-
-class MultipleChoiceDefinitionField(DefinitionField):
-    allow_multiple_selections: bool
-    allow_other_choice: bool
-    choices: List[Choice]
-
-
-CallForPaperDefinitionFields = Union[
-    TextDefinitionField,
-]
-
-
-class CallForPaperDefinition(BaseDefinition):
-    _fields: List[CallForPaperDefinitionFields] = Field(None, alias="fields")
+    _fields: List[DefinitionField] = Field(None, alias="fields")
 
 
 class BaseAnswer(BaseModel):
+    """
+    Each answer contains answer itself and information about question field.
+    """
+
     type: str
     field: BaseField
 
@@ -80,18 +49,29 @@ class MultipleChoiceAnswer(BaseAnswer):
     choices: Choices
 
 
-CallForPaperAnswer = Union[TextAnswer, MultipleChoiceAnswer]
+class CallForPaperFormResponse(BaseModel):
+    """
+    Data with specific Typeform form answer.
+    """
 
-
-class CallForPaperFormResponse(BaseFormResponse):
+    form_id: str
+    token: str
+    landed_at: datetime
+    submitted_at: datetime
     definition: CallForPaperDefinition
-    answers: List[CallForPaperAnswer]
+    answers: List[Union[TextAnswer, MultipleChoiceAnswer]]
 
 
-class CallForPaperRequest(BaseWebhookRequest):
+class CallForPaperRequest(BaseModel):
+    """
+    Typeform request format which we expects in our webhook.
+    """
+
+    event_id: str
+    event_type: str
     form_response: CallForPaperFormResponse
 
-    def extract_answers(self):
+    def extract_answers(self) -> Dict[str, Any]:
         answers = {
             field_ref(answer.dict()): extract_answer(answer.dict())
             for answer in self.form_response.answers

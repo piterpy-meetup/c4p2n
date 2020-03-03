@@ -1,3 +1,8 @@
+from typing import (
+    Dict,
+    Any,
+)
+
 from fastapi import Depends, FastAPI
 
 from fastapi_security_typeform import SignatureHeader
@@ -14,14 +19,12 @@ signature_header_security = SignatureHeader(
 
 
 @app.get("/")
-def health_check():
+def health_check() -> Dict[str, str]:
     return {"notion_user": notion.client.current_user.full_name}
 
 
-@app.post("/call_for_paper")
-def call_for_paper_webhook(
-    request: CallForPaperRequest, signature=Depends(signature_header_security)
-):
+@app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
+def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any]:
     answers = request.extract_answers()
     notion.add_talk_info(answers)
     return {"success": True}
