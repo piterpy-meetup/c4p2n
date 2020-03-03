@@ -6,4 +6,4 @@ _Created during the first B360R070N session._
 
 ## Deployment
 
-We currently use awesome [kintohub](https://kintohub.com) as hosting for our docker container with web-app 
+We currently use awesome [kintohub](https://kintohub.com) to run a docker container with our web app. 
