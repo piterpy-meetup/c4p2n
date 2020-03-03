@@ -18,10 +18,8 @@ signature_header_security = SignatureHeader(
 )
 
 
-@app.post("/call_for_paper")
-def call_for_paper_webhook(
-    request: CallForPaperRequest, signature: str = Depends(signature_header_security)
-) -> Dict[str, Any]:
+@app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
+def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any]:
     answers = request.extract_answers()
     notion.add_talk_info(answers)
     return {"success": True}
