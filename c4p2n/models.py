@@ -87,9 +87,9 @@ class CallForPaperAnswers(BaseModel):
     questions: str = Field(default="")
 
     def talk_dates(self) -> str:
-        return ', '.join(self.talk_date)
+        return ", ".join(self.talk_date)
 
-    @validator('telegram', always=True)
+    @validator("telegram", always=True)
     def prepare_telegram(cls, v: str) -> str:
         return v.strip("@").lower()
 
@@ -105,7 +105,6 @@ class CallForPaperRequest(BaseModel):
 
     def extract_answers(self) -> CallForPaperAnswers:
         answers_dict = {
-            answer.ref: answer.extract()
-            for answer in self.form_response.answers
+            answer.ref: answer.extract() for answer in self.form_response.answers
         }
         return CallForPaperAnswers(**answers_dict)
