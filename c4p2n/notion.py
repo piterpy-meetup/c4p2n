@@ -1,5 +1,3 @@
-from typing import Any, Dict, Union, List
-
 from notion.client import NotionClient
 
 from c4p2n.models import CallForPaperAnswers

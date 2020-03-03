@@ -3,9 +3,9 @@ from typing import (
     Any,
 )
 
-from fastapi import Depends, FastAPI
-
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi_security_typeform import SignatureHeader
+from pydantic import ValidationError
 
 from c4p2n.config import config
 from c4p2n.models import CallForPaperRequest
@@ -25,6 +25,14 @@ def health_check() -> Dict[str, str]:
 
 @app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
 def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any]:
-    answers = request.extract_answers()
-    notion.add_talk_info(answers)
+    try:
+        answers = request.extract_answers()
+    except ValidationError:
+        raise HTTPException(status_code=422, detail={"error": "invalid_form"})
+    try:
+        notion.add_talk_info(answers)
+    except Exception:
+        raise HTTPException(
+            status_code=500, detail={"error": "notion_error"},
+        )
     return {"success": True}
