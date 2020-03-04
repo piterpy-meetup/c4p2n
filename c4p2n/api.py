@@ -12,7 +12,11 @@ from c4p2n.models import CallForPaperRequest
 from c4p2n.notion import Notion
 
 app = FastAPI()
-notion = Notion(token=config.NOTION_TOKEN, db_link=config.NOTION_LINK)
+notion = Notion(
+    token=config.NOTION_TOKEN,
+    speakers_view_link=config.NOTION_SPEAKERS_VIEW_URL,
+    talks_view_link=config.NOTION_TALKS_VIEW_URL,
+)
 signature_header_security = SignatureHeader(
     secret=config.WEBHOOK_SECRET.get_secret_value()
 )

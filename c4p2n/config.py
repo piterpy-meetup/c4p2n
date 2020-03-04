@@ -6,7 +6,8 @@ from pydantic import (
 
 class Config(BaseSettings):
     NOTION_TOKEN: str
-    NOTION_LINK: str
+    NOTION_SPEAKERS_VIEW_URL: str
+    NOTION_TALKS_VIEW_URL: str
     WEBHOOK_SECRET: SecretBytes
 
 
