@@ -32,7 +32,7 @@ class CallForPaperDefinition(BaseModel):
 
     id: str
     title: str
-    _fields: List[DefinitionField] = Field([], alias="fields")
+    _fields: List[DefinitionField] = Field(..., alias="fields")
 
 
 class BaseAnswer(BaseModel):
