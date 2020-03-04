@@ -23,7 +23,7 @@ class CallForPaperDefinition(BaseModel):
 
     id: str
     title: str
-    _fields: List[DefinitionField] = Field(None, alias="fields")
+    _fields: List[DefinitionField] = Field([], alias="fields")
 
 
 class BaseAnswer(BaseModel):
@@ -79,12 +79,12 @@ class CallForPaperPreparedRequest(BaseModel):
     job: str
     photo_link: str
     talk_date: List[str]
-    telegram: str = Field(default="")
-    contact: str = Field(default="")
+    telegram: str = Field("")
+    contact: str = Field("")
     phone: str
-    talk_title: str = Field(default="")
+    talk_title: str = Field("")
     talk_description: str
-    questions: str = Field(default="")
+    questions: str = Field("")
 
     @property
     def talk_dates(self) -> str:
