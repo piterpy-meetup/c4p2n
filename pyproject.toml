@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "c4p2n"
-version = "0.1.0"
+version = "1.0.0"
 description = "c4p2n is a webhook that submits data about the talk from TypeForm to our Notion."
 authors = ["PiterPy Meetup <meetup@piterpy.ru>"]
 license = "MIT License"
