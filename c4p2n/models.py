@@ -74,7 +74,7 @@ class CallForPaperFormResponse(BaseModel):
     answers: List[Union[TextAnswer, MultipleChoiceAnswer]]
 
 
-class CallForPaperAnswers(BaseModel):
+class CallForPaperPreparedRequest(BaseModel):
     name: str
     job: str
     photo_link: str
@@ -86,6 +86,7 @@ class CallForPaperAnswers(BaseModel):
     talk_description: str
     questions: str = Field(default="")
 
+    @property
     def talk_dates(self) -> str:
         return ", ".join(self.talk_date)
 
@@ -103,8 +104,8 @@ class CallForPaperRequest(BaseModel):
     event_type: str
     form_response: CallForPaperFormResponse
 
-    def extract_answers(self) -> CallForPaperAnswers:
+    def prepare(self) -> CallForPaperPreparedRequest:
         answers_dict = {
             answer.ref: answer.extract() for answer in self.form_response.answers
         }
-        return CallForPaperAnswers(**answers_dict)
+        return CallForPaperPreparedRequest(**answers_dict)

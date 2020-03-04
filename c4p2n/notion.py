@@ -1,6 +1,6 @@
 from notion.client import NotionClient
 
-from c4p2n.models import CallForPaperAnswers
+from c4p2n.models import CallForPaperPreparedRequest
 
 
 class Notion:
@@ -11,14 +11,14 @@ class Notion:
         self._talks_collection_view = self.client.get_collection_view(db_link)
         self.talks_collection = self._talks_collection_view.collection
 
-    def add_talk_info(self, answers: CallForPaperAnswers) -> None:
+    def add_talk_info(self, answers: CallForPaperPreparedRequest) -> None:
         row = self.talks_collection.add_row()
         row.name = answers.name
         row.job = answers.job
         row.photo = [answers.photo_link]
         row.talk_title = answers.talk_title
         row.talk_description = answers.talk_description
-        row.talk_date = answers.talk_dates()
+        row.talk_date = answers.talk_dates
         row.telegram = answers.telegram
         row.contact = answers.contact
         row.phone = answers.phone

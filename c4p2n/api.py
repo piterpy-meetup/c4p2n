@@ -26,11 +26,11 @@ def health_check() -> Dict[str, str]:
 @app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
 def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any]:
     try:
-        answers = request.extract_answers()
+        prepared_request = request.prepare()
     except ValidationError:
         raise HTTPException(status_code=422, detail={"error": "invalid_form"})
     try:
-        notion.add_talk_info(answers)
+        notion.add_talk_info(prepared_request)
     except Exception:
         raise HTTPException(
             status_code=500, detail={"error": "notion_error"},
