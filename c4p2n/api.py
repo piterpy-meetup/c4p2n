@@ -13,7 +13,7 @@ from c4p2n.notion import Notion
 
 app = FastAPI()
 notion = Notion(
-    token=config.NOTION_TOKEN,
+    token=config.NOTION_TOKEN.get_secret_value(),
     speakers_view_link=config.NOTION_SPEAKERS_VIEW_URL,
     talks_view_link=config.NOTION_TALKS_VIEW_URL,
 )
