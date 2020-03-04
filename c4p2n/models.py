@@ -1,10 +1,8 @@
+from abc import abstractmethod
 from datetime import datetime
 from typing import Dict, Any, List, Union
 
-from pydantic import BaseModel, Field
-
-from c4p2n.constants import C4P_FIELDS
-from c4p2n.extractors import field_ref, extract_answer
+from pydantic import BaseModel, Field, validator
 
 
 class BaseField(BaseModel):
@@ -36,9 +34,20 @@ class BaseAnswer(BaseModel):
     type: str
     field: BaseField
 
+    @abstractmethod
+    def extract(self) -> Any:
+        raise NotImplementedError
+
+    @property
+    def ref(self) -> str:
+        return self.field.ref
+
 
 class TextAnswer(BaseAnswer):
     text: str
+
+    def extract(self) -> str:
+        return self.text
 
 
 class Choices(BaseModel):
@@ -47,6 +56,9 @@ class Choices(BaseModel):
 
 class MultipleChoiceAnswer(BaseAnswer):
     choices: Choices
+
+    def extract(self) -> List[str]:
+        return self.choices.labels
 
 
 class CallForPaperFormResponse(BaseModel):
@@ -62,6 +74,27 @@ class CallForPaperFormResponse(BaseModel):
     answers: List[Union[TextAnswer, MultipleChoiceAnswer]]
 
 
+class CallForPaperPreparedRequest(BaseModel):
+    name: str
+    job: str
+    photo_link: str
+    talk_date: List[str]
+    telegram: str = Field(default="")
+    contact: str = Field(default="")
+    phone: str
+    talk_title: str = Field(default="")
+    talk_description: str
+    questions: str = Field(default="")
+
+    @property
+    def talk_dates(self) -> str:
+        return ", ".join(self.talk_date)
+
+    @validator("telegram", always=True)
+    def prepare_telegram(cls, v: str) -> str:
+        return v.strip("@").lower()
+
+
 class CallForPaperRequest(BaseModel):
     """
     Typeform request format which we expects in our webhook.
@@ -71,9 +104,8 @@ class CallForPaperRequest(BaseModel):
     event_type: str
     form_response: CallForPaperFormResponse
 
-    def extract_answers(self) -> Dict[str, Any]:
-        answers = {
-            field_ref(answer.dict()): extract_answer(answer.dict())
-            for answer in self.form_response.answers
+    def prepare(self) -> CallForPaperPreparedRequest:
+        answers_dict = {
+            answer.ref: answer.extract() for answer in self.form_response.answers
         }
-        return {key: value for key, value in answers.items() if key in C4P_FIELDS}
+        return CallForPaperPreparedRequest(**answers_dict)
