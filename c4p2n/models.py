@@ -1,8 +1,17 @@
 from abc import abstractmethod
 from datetime import datetime
+from functools import wraps
 from typing import Dict, Any, List, Union
 
 from pydantic import BaseModel, Field, validator
+
+
+@wraps(Field)
+def EmptyStringField(**kwargs: Any) -> Any:
+    """
+    Replacement for an ugly Field("") call.
+    """
+    return Field("", **kwargs)
 
 
 class BaseField(BaseModel):
@@ -23,7 +32,7 @@ class CallForPaperDefinition(BaseModel):
 
     id: str
     title: str
-    _fields: List[DefinitionField] = Field(None, alias="fields")
+    _fields: List[DefinitionField] = Field(..., alias="fields")
 
 
 class BaseAnswer(BaseModel):
@@ -79,12 +88,12 @@ class CallForPaperPreparedRequest(BaseModel):
     job: str
     photo_link: str
     talk_date: List[str]
-    telegram: str = Field(default="")
-    contact: str = Field(default="")
+    telegram: str = EmptyStringField()
+    contact: str = EmptyStringField()
     phone: str
-    talk_title: str = Field(default="")
+    talk_title: str = EmptyStringField()
     talk_description: str
-    questions: str = Field(default="")
+    questions: str = EmptyStringField()
 
     @property
     def talk_dates(self) -> str:
