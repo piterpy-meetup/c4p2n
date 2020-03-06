@@ -1,0 +1,20 @@
+name: Lint
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install
+      uses: abatilo/actions-poetry@v1.5.0
+      with:
+        python_version: 3.8.0
+        poetry_version: 1.0.5
+        args: install
+    - name: Lint
+      run:
+        poetry run mypy c4p2n
+        poetry run black --check c4p2n
