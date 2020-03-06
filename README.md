@@ -51,7 +51,7 @@ For development purposes, you can skip the Docker part to not to bother with all
 those fancy production accoutrements, and just use the run script:
 
 ```shell
-sh run-app.sh [WORKERS_NUM PORT]
+sh run-app.sh [WORKERS_NUM] [PORT]
 ```
 
 where `WORKERS_NUM` and `PORT` are optional and so far positional arguments,
