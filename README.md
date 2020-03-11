@@ -64,7 +64,7 @@ uvicorn c4p2n.api:app
 ```
 
 Now the app is up and running and you can find the OpenAPI schema at
-https://localhost:8000.
+http://localhost:8000/redoc for redoc and http://localhost:8000/docs for swagger.
 
 ### Lint and format
 
