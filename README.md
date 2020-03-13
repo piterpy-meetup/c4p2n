@@ -1,5 +1,7 @@
 # c4p2n
 
+![Lint](https://github.com/piterpy-meetup/c4p2n/workflows/Lint/badge.svg)
+
 _Created during the first B360R070N session._
 
 **c4p2n** (Call For Paper To Notion) is a webhook to submit dasta about the talk
