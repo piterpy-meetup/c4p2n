@@ -36,14 +36,12 @@ class Notion:
         talk.speaker = speaker
         return talk
 
-    def add_talk_info(
-        self, call_for_paper_request: CallForPaperPreparedRequest
-    ) -> str:
+    def add_talk_info(self, call_for_paper_request: CallForPaperPreparedRequest) -> str:
         # TODO: in ideal world we need to filter speaker by name first
         # blocking issue: https://github.com/jamalex/notion-py/issues/110
         speaker = self.create_speaker_block(call_for_paper_request)
         talk = self.create_talk_block(call_for_paper_request, speaker)
-        domain = talk.space_info['spaceDomain']
+        domain = talk.space_info["spaceDomain"]
         id = talk.id.replace("-", "")
         url = f"https://notion.so/{domain}/{id}"
         return url

@@ -30,7 +30,7 @@ def health_check() -> Dict[str, str]:
 
 
 @app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
-async def call_for_paper_webhook(request: CallForPaperRequest, ) -> Dict[str, Any]:
+async def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any]:
     try:
         prepared_request = request.prepare()
     except ValidationError:
@@ -38,7 +38,7 @@ async def call_for_paper_webhook(request: CallForPaperRequest, ) -> Dict[str, An
         raise HTTPException(status_code=422, detail={"error": "invalid_form"})
 
     try:
-        talk_url=notion.add_talk_info(prepared_request)
+        talk_url = notion.add_talk_info(prepared_request)
     except Exception:
         await telegram_api.triggers_api.notion_error()
         raise HTTPException(
@@ -46,7 +46,12 @@ async def call_for_paper_webhook(request: CallForPaperRequest, ) -> Dict[str, An
         )
 
     await telegram_api.triggers_api.talk_new(
-        TalkInfo(speaker_name=prepared_request.name, talk_name=prepared_request.talk_title,
-                 talk_dates=prepared_request.talk_dates, notion_url=talk_url))
+        TalkInfo(
+            speaker_name=prepared_request.name,
+            talk_name=prepared_request.talk_title,
+            talk_dates=prepared_request.talk_dates,
+            notion_url=talk_url,
+        )
+    )
 
     return {"success": True}
