@@ -290,7 +290,7 @@ description = "PPM Telegram Bot"
 name = "ppm-telegram-bot-client"
 optional = false
 python-versions = "*"
-version = "0.1.1"
+version = "0.1.3"
 
 [package.dependencies]
 fastapi = "*"
@@ -612,7 +612,7 @@ pathspec = [
     {file = "pathspec-0.7.0.tar.gz", hash = "sha256:562aa70af2e0d434367d9790ad37aed893de47f1693e4201fd1d3dca15d19b96"},
 ]
 ppm-telegram-bot-client = [
-    {file = "ppm-telegram-bot-client-0.1.1.tar.gz", hash = "sha256:ce03aca0c772416ade782de122622f31ca1af8427d29b99112a9608d89012f2b"},
+    {file = "ppm-telegram-bot-client-0.1.3.tar.gz", hash = "sha256:bb05d0f8684342e3a62c4876d91b3b982fc10926160738645959702e7a67a297"},
 ]
 pydantic = [
     {file = "pydantic-1.4-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:07911aab70f3bc52bb845ce1748569c5e70478ac977e106a150dd9d0465ebf04"},

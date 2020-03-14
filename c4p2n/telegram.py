@@ -1,7 +1,9 @@
 from ppm_telegram_bot_client.api_client import ApiClient, AsyncApis
 
+from c4p2n.config import config
+
 client = ApiClient(
-    host="https://fb2e38d3-14e7-40f3-95d8-a3f4f44e69cc.api.beta.kintohub.com/ppm-telegram-bot-sl"
+    host=config.PPM_TELEGRAM_BOT_API_URL
 )
 
 telegram_api = AsyncApis(client)
