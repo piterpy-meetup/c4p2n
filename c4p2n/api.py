@@ -53,5 +53,4 @@ async def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any
             notion_url=talk_url,
         )
     )
-
     return {"success": True}
