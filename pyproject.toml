@@ -14,7 +14,7 @@ fastapi-security-typeform = "^1.0.0"
 uvicorn = "^0.11.3"
 
 notion = "^0.0.25"
-ppm-telegram-bot-client = "^0.1.0"
+ppm-telegram-bot-client = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

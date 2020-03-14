@@ -95,8 +95,8 @@ category = "main"
 description = "Composable command line interface toolkit"
 name = "click"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "7.0"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "7.1.1"
 
 [[package]]
 category = "main"
@@ -147,7 +147,7 @@ description = ""
 name = "fastapi-security-typeform"
 optional = false
 python-versions = ">=3.6"
-version = "1.0.0"
+version = "1.0.1"
 
 [package.dependencies]
 fastapi = "*"
@@ -290,7 +290,7 @@ description = "PPM Telegram Bot"
 name = "ppm-telegram-bot-client"
 optional = false
 python-versions = "*"
-version = "0.1.0"
+version = "0.1.1"
 
 [package.dependencies]
 fastapi = "*"
@@ -486,7 +486,7 @@ python-versions = ">=3.6.1"
 version = "8.1"
 
 [metadata]
-content-hash = "594a80658aa6bb3ad9bbcfb515825b8f1aa0ac4a4ea3f9d3ae20a2e64480bbef"
+content-hash = "be3226f62074789c3f4509255a816b0ddc2dd6539483c6b0fb6b410a57d734ef"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -523,8 +523,8 @@ chardet = [
     {file = "chardet-3.0.4.tar.gz", hash = "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"},
 ]
 click = [
-    {file = "Click-7.0-py2.py3-none-any.whl", hash = "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13"},
-    {file = "Click-7.0.tar.gz", hash = "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"},
+    {file = "click-7.1.1-py2.py3-none-any.whl", hash = "sha256:e345d143d80bf5ee7534056164e5e112ea5e22716bbb1ce727941f4c8b471b9a"},
+    {file = "click-7.1.1.tar.gz", hash = "sha256:8a18b4ea89d8820c5d0c7da8a64b2c324b4dabb695804dbfea19b9be9d88c0cc"},
 ]
 commonmark = [
     {file = "commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
@@ -539,8 +539,8 @@ fastapi = [
     {file = "fastapi-0.52.0.tar.gz", hash = "sha256:721b11d8ffde52c669f52741b6d9d761fe2e98778586f4cfd6f5e47254ba5016"},
 ]
 fastapi-security-typeform = [
-    {file = "fastapi-security-typeform-1.0.0.tar.gz", hash = "sha256:dce82e9f12e01543cf3df2c6e5268df01ebd254b1f79888c7f674bcaa1be2917"},
-    {file = "fastapi_security_typeform-1.0.0-py3-none-any.whl", hash = "sha256:e9dbe5e8f82c01358d7e67aa89334c77eb610f43be1484ef1219c159830c7bbb"},
+    {file = "fastapi-security-typeform-1.0.1.tar.gz", hash = "sha256:39e28e9b4fe4d0419a1219c701c9812f573dfc3f1ca2df8a2b07c41f7530e689"},
+    {file = "fastapi_security_typeform-1.0.1-py3-none-any.whl", hash = "sha256:b9905cff42c5e8790ea82cb4286516c92f7b9b8ae90bb1a9ac37b6af63bc2e83"},
 ]
 h11 = [
     {file = "h11-0.9.0-py2.py3-none-any.whl", hash = "sha256:4bc6d6a1238b7615b266ada57e0618568066f57dd6fa967d1290ec9309b2f2f1"},
@@ -612,7 +612,7 @@ pathspec = [
     {file = "pathspec-0.7.0.tar.gz", hash = "sha256:562aa70af2e0d434367d9790ad37aed893de47f1693e4201fd1d3dca15d19b96"},
 ]
 ppm-telegram-bot-client = [
-    {file = "ppm-telegram-bot-client-0.1.0.tar.gz", hash = "sha256:772c28c595ec17fd49b3d7bc9c6af50a54019fed3f8d58c8d105f5717775ede8"},
+    {file = "ppm-telegram-bot-client-0.1.1.tar.gz", hash = "sha256:ce03aca0c772416ade782de122622f31ca1af8427d29b99112a9608d89012f2b"},
 ]
 pydantic = [
     {file = "pydantic-1.4-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:07911aab70f3bc52bb845ce1748569c5e70478ac977e106a150dd9d0465ebf04"},
