@@ -8,6 +8,7 @@ from fastapi_security_typeform import SignatureHeader
 from ppm_telegram_bot_client.models import TalkInfo
 from pydantic import ValidationError
 from fastapi import BackgroundTasks, FastAPI
+from starlette.responses import JSONResponse
 
 from c4p2n.config import config
 from c4p2n.models import CallForPaperRequest
@@ -33,20 +34,18 @@ def health_check() -> Dict[str, str]:
 @app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
 async def call_for_paper_webhook(
     request: CallForPaperRequest, background_tasks: BackgroundTasks
-) -> Dict[str, Any]:
+) -> JSONResponse:
     try:
         prepared_request = request.prepare()
     except ValidationError:
         background_tasks.add_task(telegram_api.triggers_api.typeform_invalid)
-        raise HTTPException(status_code=422, detail={"error": "invalid_form"})
+        return JSONResponse(status_code=422, content={"error": "invalid_form"})
 
     try:
         talk_url = notion.add_talk_info(prepared_request)
     except Exception:
         background_tasks.add_task(telegram_api.triggers_api.notion_error)
-        raise HTTPException(
-            status_code=500, detail={"error": "notion_error"},
-        )
+        return JSONResponse(status_code=500, content={"error": "notion_error"},)
 
     background_tasks.add_task(
         telegram_api.triggers_api.talk_new,
@@ -57,4 +56,4 @@ async def call_for_paper_webhook(
             notion_url=talk_url,
         ),
     )
-    return {"success": True}
+    return JSONResponse(content={"success": True})
