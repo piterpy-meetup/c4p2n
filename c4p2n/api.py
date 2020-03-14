@@ -5,11 +5,15 @@ from typing import (
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi_security_typeform import SignatureHeader
+from ppm_telegram_bot_client.models import TalkInfo
 from pydantic import ValidationError
+from fastapi import BackgroundTasks, FastAPI
+from starlette.responses import JSONResponse
 
 from c4p2n.config import config
 from c4p2n.models import CallForPaperRequest
 from c4p2n.notion import Notion
+from c4p2n.telegram import telegram_api
 
 app = FastAPI()
 notion = Notion(
@@ -28,15 +32,28 @@ def health_check() -> Dict[str, str]:
 
 
 @app.post("/call_for_paper", dependencies=[Depends(signature_header_security)])
-def call_for_paper_webhook(request: CallForPaperRequest,) -> Dict[str, Any]:
+async def call_for_paper_webhook(
+    request: CallForPaperRequest, background_tasks: BackgroundTasks
+) -> JSONResponse:
     try:
         prepared_request = request.prepare()
     except ValidationError:
-        raise HTTPException(status_code=422, detail={"error": "invalid_form"})
+        background_tasks.add_task(telegram_api.triggers_api.typeform_invalid)
+        return JSONResponse(status_code=422, content={"error": "invalid_form"})
+
     try:
-        notion.add_talk_info(prepared_request)
+        talk_url = notion.add_talk_info(prepared_request)
     except Exception:
-        raise HTTPException(
-            status_code=500, detail={"error": "notion_error"},
-        )
-    return {"success": True}
+        background_tasks.add_task(telegram_api.triggers_api.notion_error)
+        return JSONResponse(status_code=500, content={"error": "notion_error"},)
+
+    background_tasks.add_task(
+        telegram_api.triggers_api.talk_new,
+        TalkInfo(
+            speaker_name=prepared_request.name,
+            talk_name=prepared_request.talk_title,
+            talk_dates=prepared_request.talk_dates,
+            notion_url=talk_url,
+        ),
+    )
+    return JSONResponse(content={"success": True})
