@@ -4,4 +4,4 @@ from c4p2n.config import config
 
 client = ApiClient(host=config.PPM_TELEGRAM_BOT_API_URL)
 
-telegram_api = AsyncApis(client)
+telegram_api = AsyncApis(client, timeout=120)
